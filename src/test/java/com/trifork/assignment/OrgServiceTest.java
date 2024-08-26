@@ -55,7 +55,7 @@ class OrgServiceTest {
         when(orgRepository.findById(2L)).thenReturn(Optional.of(mid.withChildren(new HashSet<>())));
         when(orgRepository.findById(3L)).thenReturn(Optional.of(child.withChildren(new HashSet<>())));
 
-        Optional<Org> result = orgService.getTopmostParent(3L);
+        Optional<Org> result = orgService.getTopLevelAncestor(3L);
         assertTrue(result.isPresent());
 
         Org org = result.get();
@@ -78,7 +78,7 @@ class OrgServiceTest {
         Optional<OrgDTO> expected = Optional.of(org.withChildren(new HashSet<>()));
         when(orgRepository.findById(1L)).thenReturn(expected);
 
-        Optional<Org> result = orgService.getTopmostParent(1L);
+        Optional<Org> result = orgService.getTopLevelAncestor(1L);
         Org topmostParent = result.get();
         assertEquals("Org 1", topmostParent.getName());
     }

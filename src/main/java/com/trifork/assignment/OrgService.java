@@ -42,7 +42,7 @@ public class OrgService {
                 .flatMap(this::getOrg);
     }
 
-    public Optional<Org> getTopmostParent(Long sorCode) {
+    public Optional<Org> getTopLevelAncestor(Long sorCode) {
         Optional<OrgDTO> maybeOrg = getOrg(sorCode);
         if (!maybeOrg.isPresent()) {
             return Optional.empty();
