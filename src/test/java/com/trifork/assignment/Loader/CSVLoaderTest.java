@@ -3,7 +3,6 @@ package com.trifork.assignment.Loader;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import com.trifork.assignment.Loader.CSVLoader;
 import com.trifork.assignment.Model.OrgDTO;
 
 import java.io.IOException;
