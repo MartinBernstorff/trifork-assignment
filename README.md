@@ -19,15 +19,15 @@ The application provides two main endpoints:
 
 ## Implementation Notes
 
-- The code follows a functional core, imperative shell approach, utilizing Optional, and lambdas. Traversal was written imperatively.
-- Testing includes mocking of the repository layer to ensure proper functionality of the service layer.
+- The code follows a functional core, imperative shell approach, utilizing Optional for null-like-handling. This enables both a stream- and iterator based approach, highlighted at the Controller level. Traversal was written imperatively rather than recursively, since Java does not have tail-call-optimization.
+- Testing includes mocking of the repository layer to ensure proper functionality of the service layer, while avoiding the need for a full Spring Boot application context.
 
 ## Areas for Future Improvement
 
 Given more time, potential enhancements could include:
 
-- Additional testing, including smoke tests for endpoints
-- Logging implementation
+- Additional testing, including smoke/integration tests for endpoints
+- Logging
 - Metrics and health checks
 - Security considerations (e.g., rate limiting, authentication)
 
