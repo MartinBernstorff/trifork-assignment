@@ -9,11 +9,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 
 /**
- * OrgDTO is a Data Transfer Object (DTO) representing an organization. It
- * contains the core properties of an organization such as id, name, type,
- * region, specialty, and cvr.
- * This class does not yet contain information about child organizations. See
- * Org.
+ * OrgDTO is a Data Transfer Object (DTO) representing an organization.
+ * This class does not yet contain information about child organizations.
  */
 @Entity
 public class OrgDTO {
