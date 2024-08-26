@@ -1,0 +1,14 @@
+# Has children
+GET http://localhost:8080/v1/698621000016008 
+
+### Has children and parent
+GET http://localhost:8080/v1/698631000016005
+
+### Has only parent
+GET http://localhost:8080/v1/698641000016003
+
+### Topmost parent
+GET http://localhost:8080/v1/698641000016003/topmost-parent
+
+### Invalid ID
+GET http://localhost:8080/v1/834732
