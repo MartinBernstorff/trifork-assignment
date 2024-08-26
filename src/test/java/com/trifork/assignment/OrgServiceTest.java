@@ -45,7 +45,7 @@ class OrgServiceTest {
     }
 
     @Test
-    void testGetTopLevelAncestor() {
+    void testGetTopmostParent() {
         OrgDTO parent = new OrgDTO(1L, Optional.empty(), "Org 1", "Type 1", "Region 1", "Specialty 1", "CVR 1");
         OrgDTO mid = new OrgDTO(2L, Optional.of(1L), "Org 2", "Type 2", "Region 2", "Specialty 2", "CVR 2");
         OrgDTO child = new OrgDTO(3L, Optional.of(2L), "Org 3", "Type 3", "Region 3", "Specialty 3", "CVR 3");
@@ -54,7 +54,7 @@ class OrgServiceTest {
         when(orgRepository.findById(2L)).thenReturn(Optional.of(mid.withChildren(new HashSet<>())));
         when(orgRepository.findById(3L)).thenReturn(Optional.of(child.withChildren(new HashSet<>())));
 
-        Org org = result.get();
+        Org org = orgService.getTopLevelAncestor(3L).get();
         assertEquals("Org 1", org.getName());
     }
 
@@ -67,7 +67,7 @@ class OrgServiceTest {
     }
 
     @Test
-    void testGetTopLevelAncestorNoParent() {
+    void testGetTopmostParentNoParent() {
         OrgDTO org = new OrgDTO(1L, Optional.empty(), "Org 1", "Type 1", "Region 1", "Specialty 1", "CVR 1");
 
         Optional<OrgDTO> expected = Optional.of(org.withChildren(new HashSet<>()));
