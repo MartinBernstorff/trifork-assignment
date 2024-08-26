@@ -1,19 +1,41 @@
 package com.trifork.assignment;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import java.nio.charset.Charset;
+
+import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 
+import com.trifork.assignment.Loader.CSVLoader;
 import com.trifork.assignment.Model.Org;
 import com.trifork.assignment.Model.OrgDTO;
 
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.io.IOException;
+import java.nio.file.Path;
 
 @Service
 public class OrgService {
-    @Autowired
-    private OrgRepository orgRepository;
+    private final OrgRepository orgRepository;
+
+    public OrgService(OrgRepository orgRepository, Environment env) {
+        this.orgRepository = orgRepository;
+
+        if (env == null) {
+            // In non SpringBoot test
+            return;
+        }
+
+        try {
+            CSVLoader organizations = new CSVLoader(Path.of("src/main/resources/sor.csv"),
+                    ';', Charset.forName("windows-1252"));
+            this.populateOrgs(organizations.getAll());
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load sor codes", e);
+        }
+
+    }
 
     public void populateOrgs(OrgDTO[] orgs) {
         for (OrgDTO org : orgs) {
