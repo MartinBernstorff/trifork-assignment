@@ -1,4 +1,4 @@
-package com.trifork.assignment.OrgLoader;
+package com.trifork.assignment.Loader;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;

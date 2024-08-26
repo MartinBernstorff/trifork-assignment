@@ -1,4 +1,4 @@
-package com.trifork.assignment.OrgRepository;
+package com.trifork.assignment;
 
 import org.springframework.data.repository.CrudRepository;
 

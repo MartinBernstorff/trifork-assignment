@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.trifork.assignment.Model.Org;
 import com.trifork.assignment.Model.OrgDTO;
-import com.trifork.assignment.OrgRepository.OrgRepository;
+
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;

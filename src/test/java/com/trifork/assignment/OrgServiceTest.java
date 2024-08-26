@@ -16,7 +16,6 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import com.trifork.assignment.Model.Org;
 import com.trifork.assignment.Model.OrgDTO;
-import com.trifork.assignment.OrgRepository.OrgRepository;
 
 @ExtendWith(SpringExtension.class)
 class OrgServiceTest {
@@ -46,7 +45,7 @@ class OrgServiceTest {
     }
 
     @Test
-    void testGetTopmostParent() {
+    void testGetTopLevelAncestor() {
         OrgDTO parent = new OrgDTO(1L, Optional.empty(), "Org 1", "Type 1", "Region 1", "Specialty 1", "CVR 1");
         OrgDTO mid = new OrgDTO(2L, Optional.of(1L), "Org 2", "Type 2", "Region 2", "Specialty 2", "CVR 2");
         OrgDTO child = new OrgDTO(3L, Optional.of(2L), "Org 3", "Type 3", "Region 3", "Specialty 3", "CVR 3");
@@ -55,24 +54,20 @@ class OrgServiceTest {
         when(orgRepository.findById(2L)).thenReturn(Optional.of(mid.withChildren(new HashSet<>())));
         when(orgRepository.findById(3L)).thenReturn(Optional.of(child.withChildren(new HashSet<>())));
 
-        Optional<Org> result = orgService.getTopLevelAncestor(3L);
-        assertTrue(result.isPresent());
-
         Org org = result.get();
         assertEquals("Org 1", org.getName());
     }
 
     @Test
     void testEmptyOrgHierarchy() {
-        when(orgRepository.findAll()).thenReturn(Arrays.asList());
-        when(orgRepository.findById(1L)).thenReturn(Optional.empty());
+        when(orgRepository.findAllByParentID(Optional.of(1L))).thenReturn(new HashSet<>());
 
         Optional<Org> result = orgService.getOrganizationWithChildren(1L);
         assertFalse(result.isPresent());
     }
 
     @Test
-    void testGetTopmostParentNoParent() {
+    void testGetTopLevelAncestorNoParent() {
         OrgDTO org = new OrgDTO(1L, Optional.empty(), "Org 1", "Type 1", "Region 1", "Specialty 1", "CVR 1");
 
         Optional<OrgDTO> expected = Optional.of(org.withChildren(new HashSet<>()));

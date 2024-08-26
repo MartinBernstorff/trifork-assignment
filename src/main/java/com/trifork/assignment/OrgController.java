@@ -53,10 +53,10 @@ public class OrgController {
 	@GetMapping("/{id}/topmost-parent")
 	public ResponseEntity<Org> getTopLevelAncestor(@PathVariable Long id) {
 		// Imperative approach. Use whichever is aligned with the codebase.
-		Optional<Org> maybeTopmostParent = orgService.getTopLevelAncestor(id);
-		if (maybeTopmostParent.isEmpty()) {
+		Optional<Org> maybeTopLevelAncestor = orgService.getTopLevelAncestor(id);
+		if (maybeTopLevelAncestor.isEmpty()) {
 			return ResponseEntity.notFound().build();
 		}
-		return ResponseEntity.ok(maybeTopmostParent.get());
+		return ResponseEntity.ok(maybeTopLevelAncestor.get());
 	}
 }
