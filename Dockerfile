@@ -1,11 +1,11 @@
 # Build stage
-FROM gradle:8.10-jdk22 AS build
+FROM gradle:8.10-jdk21 AS build
 WORKDIR /app
 COPY . .
 RUN gradle build --no-daemon
 
 # Run stage
-FROM openjdk:22-slim
+FROM openjdk:21-slim
 WORKDIR /app
 
 # Create a non-root user
